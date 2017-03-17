@@ -1,0 +1,5 @@
+.hbox{
+	-fx-width: 20%;
+	-fx-height:100%;
+	-fx-border-left: medium 3px black;
+}

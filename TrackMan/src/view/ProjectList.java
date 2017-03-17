@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import org.json.JSONObject;
 import control.ModelController;
 import javafx.scene.layout.FlowPane;
@@ -11,6 +13,9 @@ public class ProjectList extends VBox {
 
 	public ProjectList(){
 		super();
+		this.getStyleClass().add("hbox");
+		File css = new File("styles/list.css");
+		this.getStylesheets().add("file://"+css.getAbsolutePath());
 		refreshProjectList();
 	}
 

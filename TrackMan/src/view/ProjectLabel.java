@@ -1,6 +1,8 @@
 package view;
 
 import javafx.scene.layout.HBox;
+
+import java.io.File;
 import java.util.LinkedList;
 import javafx.scene.control.Label;
 
@@ -21,6 +23,10 @@ public class ProjectLabel extends HBox {
 		super();
 		this.text = new Label(name);
 		this.getChildren().add(this.text);
+
+		this.getStyleClass().add("vbox");
+		File css = new File("styles/ListEntry.css");
+		this.getStylesheets().add("file://"+css.getAbsolutePath());
 	}
 
 }
