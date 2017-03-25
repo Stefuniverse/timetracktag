@@ -1,5 +1,9 @@
 .hbox{
 	-fx-background-color: black;
-	-fx-color: white;
-	-fx-padding-left: 20px;
+	-fx-padding: 5 5 5 5;
+}
+
+.plabel{
+	-fx-text-fill: #ff0000;
+	-fx-font-size: 20px;
 }

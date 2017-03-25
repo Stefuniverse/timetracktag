@@ -1,5 +1,6 @@
-.hbox{
-	-fx-width: 20%;
-	-fx-height:100%;
+.vbox{
+	-fx-min-width: 150px;
+	-fx-min-height:100%;
 	-fx-border-left: medium 3px black;
+	-fx-background-color: blue;
 }

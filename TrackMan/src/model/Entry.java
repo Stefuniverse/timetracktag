@@ -1,39 +1,42 @@
 package model;
 
+import java.util.Calendar;
 
 /**
  * One Entry what you have done today
- * 
+ *
  * @author stef
  *
  */
 public class Entry {
-	
-	private double startdate;
-	private double hours;
+
+	private Calendar startdate;
+	private Calendar endDate;
 	private String notes;
-	
-	public Entry (double startdate){
+	private Project project;
+
+	public Entry(Calendar startdate, Calendar hours, String notes, Project project){
+		this.project = project;
 		this.startdate = startdate;
-		
-	}
-	
-	public Entry(double startdate, double hours, String notes){
-		this.startdate = startdate;
-		this.hours = hours;
+		this.endDate = hours;
 		this.notes = notes;
 	}
 
-	public double getStartdate() {
+	public Entry (Calendar startdate){
+		this.startdate = startdate;
+
+	}
+
+	public Calendar getStartdate() {
 		return startdate;
 	}
 
-	public double getHours() {
-		return hours;
+	public Calendar getHours() {
+		return endDate;
 	}
 
-	public void setHours(double hours) {
-		this.hours = hours;
+	public void setHours(Calendar hours) {
+		this.endDate = hours;
 	}
 
 	public String getNotes() {
@@ -43,6 +46,6 @@ public class Entry {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	
-	
+
+
 }
