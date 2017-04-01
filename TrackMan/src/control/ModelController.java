@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+import Exceptions.DayNotFoundException;
 import model.Day;
 import model.Project;
 
@@ -20,21 +21,40 @@ public class ModelController {
 		return projects;
 	}
 
-	public static Day getDay(Calendar c){
+	public static Day getDay(Calendar c) throws DayNotFoundException{
 		Calendar d = Calendar.getInstance();
+		d.clear();
 		d.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 		for(Day i : dayList){
 			if(i.getDate().equals(d)){
 				return i;
 			}
-		} 
-		return null;
+		}
+		throw new DayNotFoundException(c);
 	}
 
-	public static Calendar getToday(){
+	public static Day getToday(){
 		Calendar c = Calendar.getInstance();
 		c.setTimeInMillis(System.currentTimeMillis());
-		return roundToDays(c);
+		try{
+			return getDay(roundToDays(c));
+		} catch (DayNotFoundException e){
+			Day d = new Day(roundToDays(c));
+			addDay(d);
+			return d;
+		}
+	}
+
+	public static Day getTommorow(){
+		Calendar d = getToday().getDate();
+		d.add(Calendar.DAY_OF_MONTH, 1);
+		try {
+			return getDay(d);
+		} catch (DayNotFoundException e) {
+			Day day = new Day(d);
+			addDay(day);
+			return day;
+		}
 	}
 
 	public static void addProject(Project p){
@@ -47,6 +67,7 @@ public class ModelController {
 
 	public static Calendar roundToDays(Calendar c){
 		Calendar d = Calendar.getInstance();
+		d.clear();
 		d.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 		return d;
 	}

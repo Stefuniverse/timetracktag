@@ -10,18 +10,22 @@ import view.WorkBar;
 
 public class ViewController extends Application {
 
-	BorderPane root;
-	Scene s;
+	private static BorderPane root;
+	private static Scene s;
+	private static double masterWidth;
+	private static double masterHeight;
 
 	public void start(Stage ps) throws Exception {
-		ps.setTitle("TrackMan 0.1");
 		root = new BorderPane();
+		ps.setTitle("TrackMan 0.1");
+		s = new Scene(root, 800, 600);
+		masterWidth = s.getWidth();
+		masterHeight = s.getHeight();
+
+		ps.setScene(s);
 
 		root.setRight(new ProjectList());
-		root.setTop(new WorkBar());
-
-		s = new Scene(root, 800, 600);
-		ps.setScene(s);
+		root.setTop(new WorkBar(ModelController.getToday()));
 		ps.show();
 
 	}
@@ -29,6 +33,17 @@ public class ViewController extends Application {
 	public static void go(String[] args) {
 		launch(args);
 
+	}
+
+	public static double  getMasterHeight(){
+		return masterHeight;
+	}
+	public static double getMasterWidth(){
+		return masterWidth;
+	}
+
+	public static void rebuildWorkBar() {
+		root.setTop(new WorkBar(ModelController.getToday()));
 	}
 
 }

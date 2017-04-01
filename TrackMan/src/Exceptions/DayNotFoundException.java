@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.Calendar;
 
 @SuppressWarnings("serial")
-public class DayNotFound extends IOException {
+public class DayNotFoundException extends IOException {
 	
-	public DayNotFound(Calendar searchTerm){
+	public DayNotFoundException(Calendar searchTerm){
 		super("Day not in Database: "+searchTerm);
 	}
 

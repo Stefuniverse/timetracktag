@@ -27,6 +27,14 @@ public class Entry {
 
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	public Calendar getStartdate() {
 		return startdate;
 	}
