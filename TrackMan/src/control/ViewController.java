@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.InputField;
 import view.Mainview;
 import view.ProjectList;
 import view.WorkBar;
@@ -26,6 +27,7 @@ public class ViewController extends Application {
 
 		root.setRight(new ProjectList());
 		root.setTop(new WorkBar(ModelController.getToday()));
+		root.setCenter(new InputField());
 		ps.show();
 
 	}

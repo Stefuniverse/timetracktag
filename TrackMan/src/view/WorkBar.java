@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javafx.scene.layout.HBox;
 import model.Day;
 import model.Entry;
+import model.Project;
 import control.ModelController;
 import control.ViewController;
 
@@ -36,19 +37,25 @@ public class WorkBar extends HBox{
 	private void generateVisualElements() {
 
 		this.getChildren().clear();
-
-		ArrayList<WorkBarEntry> arr = new ArrayList<WorkBarEntry>();
-
-		for (Entry e : d.getEntries()){
+		Entry before = new Entry(ModelController.getToday().getDate());
+		for (Entry e : d.getEntriesSorted()){
 			double m = e.getHours().getTimeInMillis() - e.getStartdate().getTimeInMillis();
 			double length = (m / 86400000)*ViewController.getMasterWidth(); //calculates length relative to Bar-length
-			WorkBarEntry en = new WorkBarEntry(e);
-			en.setMinWidth(length);
-			arr.add(en);
-		}
+			if(!before.getHours().equals(e.getStartdate())){
+				Entry ee = new Entry(before.getHours(),e.getStartdate(),"Keine erfasste Zeit",Project.NOTTRACKED);
+				double mi = ee.getHours().getTimeInMillis() - ee.getStartdate().getTimeInMillis();
+				double lengthi = (mi / 86400000)*ViewController.getMasterWidth(); //calculates length relative to Bar-length
+				WorkBarEntry wi = new WorkBarEntry(ee);
+				wi.setMinWidth(lengthi);
+				this.getChildren().add(wi);
 
-		Comparator<WorkBarEntry> co = Comparator.comparingLong(WorkBarEntry::getStartInMillis);
-		this.getChildren().addAll(arr.stream().sorted(co).collect(Collectors.toCollection(LinkedList::new)));
+			}
+			WorkBarEntry en = new WorkBarEntry(e);
+			before = e;
+			en.setMinWidth(length);
+			this.getChildren().add(en);
+
+		}
 		return;
 	}
 

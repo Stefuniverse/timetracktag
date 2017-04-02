@@ -2,24 +2,28 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import Exceptions.InvalidEntryException;
 import Exceptions.SlotAllreadyInUseException;
 import control.ModelController;
 import control.ViewController;
+import view.WorkBarEntry;
 
 public class Day {
 
 	private Calendar date;
-	private ArrayList<Entry> entries;
+	private LinkedList<Entry> entries;
 
 	public Day(Calendar c){
 		this.date = c;
-		this.entries = new ArrayList<Entry>();
+		this.entries = new LinkedList<Entry>();
 	}
 
-	public Day(Date day, ArrayList<Entry> e){
+	public Day(Date day, LinkedList<Entry> e){
 		this.date = Calendar.getInstance();
 		this.entries = e;
 	}
@@ -32,7 +36,11 @@ public class Day {
 		this.date = day;
 	}
 
-	public ArrayList<Entry> getEntries() {
+	public LinkedList<Entry> getEntriesSorted() {
+		Comparator<Entry> co = Comparator.comparingLong(Entry::getStartInMillis);
+		LinkedList<Entry> e = entries.stream().sorted(co).collect(Collectors.toCollection(LinkedList::new));
+
+
 		return this.entries;
 	}
 
@@ -61,32 +69,6 @@ public class Day {
 
 		this.entries.add(new Entry(starts, end, desc, p));
 
-	}
-
-	public long getEarliest() {
-		if(entries.isEmpty()){
-			return 0;
-		}
-		long er = 0;
-		for(Entry e: entries){
-			if (e.getStartdate().getTimeInMillis() < er || er == 0){
-				er = e.getStartdate().getTimeInMillis();
-			}
-		}
-		return er;
-	}
-	
-	public long getLatest() {
-		if(entries.isEmpty()){
-			return 0;
-		}
-		long er = 0;
-		for(Entry e: entries){
-			if (e.getHours().getTimeInMillis() > er){
-				er = e.getStartdate().getTimeInMillis();
-			}
-		}
-		return er;
 	}
 
 }

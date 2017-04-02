@@ -22,8 +22,8 @@ public class Entry {
 		this.notes = notes;
 	}
 
-	public Entry (Calendar startdate){
-		this.startdate = startdate;
+	public Entry (Calendar endate){
+		this.endDate = endate;
 
 	}
 
@@ -53,6 +53,10 @@ public class Entry {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public long getStartInMillis(){
+		return startdate.getTimeInMillis();
 	}
 
 

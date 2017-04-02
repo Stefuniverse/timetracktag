@@ -57,9 +57,5 @@ public class WorkBarEntry extends Label{
 		return e;
 	}
 
-	public long getStartInMillis(){
-		return e.getStartdate().getTimeInMillis();
-	}
-
 
 }
