@@ -2,6 +2,7 @@ package view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -35,9 +36,9 @@ public class WorkBar extends HBox{
 	}
 
 	private void generateVisualElements() {
-
-		this.getChildren().clear();
-		Entry before = new Entry(ModelController.getToday().getDate());
+		Calendar relativeTime = Calendar.getInstance();
+		relativeTime.setTimeInMillis(this.d.getDate().getTimeInMillis());
+		Entry before = new Entry(ModelController.roundToDays(relativeTime));
 		for (Entry e : d.getEntriesSorted()){
 			double m = e.getHours().getTimeInMillis() - e.getStartdate().getTimeInMillis();
 			double length = (m / 86400000)*ViewController.getMasterWidth(); //calculates length relative to Bar-length
@@ -55,6 +56,15 @@ public class WorkBar extends HBox{
 			en.setMinWidth(length);
 			this.getChildren().add(en);
 
+		}
+		relativeTime.add(Calendar.DAY_OF_MONTH, 1);
+		if (!relativeTime.equals(before.getHours())){
+			Entry ee = new Entry(before.getHours(),relativeTime,"Keine erfasste Zeit",Project.NOTTRACKED);
+			double mi = ee.getHours().getTimeInMillis() - ee.getStartdate().getTimeInMillis();
+			double lengthi = (mi / 86400000)*ViewController.getMasterWidth(); //calculates length relative to Bar-length
+			WorkBarEntry wi = new WorkBarEntry(ee);
+			wi.setMinWidth(lengthi);
+			this.getChildren().add(wi);
 		}
 		return;
 	}
