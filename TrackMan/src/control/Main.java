@@ -39,7 +39,6 @@ public class Main{
 			d.add(Calendar.HOUR, 23);
 			ModelController.getToday().createEntry(s, c, d, "Activiy c");
 		} catch (SlotAllreadyInUseException | InvalidEntryException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ViewController.go(args);
