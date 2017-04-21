@@ -15,39 +15,42 @@ import view.WorkBarEntry;
 
 public class Day {
 
-	private Calendar date;
+	private int year;
+	private int month;
+	private int dayOfMonth;
 	private LinkedList<Entry> entries;
 
-	public Day(Calendar c){
-		this.date = c;
+	public Day(int year, int month, int dayOfMonth){
+		this.year = year;
+		this.month = month;
+		this.dayOfMonth = dayOfMonth;
 		this.entries = new LinkedList<Entry>();
 	}
 
-	public Day(Date day, LinkedList<Entry> e){
-		this.date = Calendar.getInstance();
-		this.entries = e;
-	}
-
-	public Calendar getDate() {
-		return date;
-	}
-
-	public void setDate(Calendar day) {
-		this.date = day;
-	}
-
 	public LinkedList<Entry> getEntriesSorted() {
-		Comparator<Entry> co = Comparator.comparingLong(Entry::getStartInMillis);
+		Comparator<Entry> co = Comparator.comparingDouble(Entry::getStartHour);
 		LinkedList<Entry> e = entries.stream().sorted(co).collect(Collectors.toCollection(LinkedList::new));
 
 
 		return this.entries;
 	}
 
-	public void createEntry(Project p, Calendar starts, Calendar end, String desc) throws SlotAllreadyInUseException, InvalidEntryException{
+
+	public Boolean equals(Day d){
+		if(dayOfMonth == d.getDayOfMonth() &&
+				month == d.getMonth() &&
+				year == d.getYear()){
+			return true;
+		} return false;
+
+	}
+
+	public void createEntry(Project p, double starts, double end, String desc) throws SlotAllreadyInUseException, InvalidEntryException{
 		for(Entry e : entries){
-			if(starts.after(e.getStartdate()) && starts.before(e.getHours())
-					|| end.after(e.getStartdate()) && end.before(e.getHours())){
+			if(e.getStartHour() > starts && e.getEndHour() < end ||
+					e.getStartHour() < starts && end < e.getEndHour() ||
+					e.getStartHour() < starts && e.getEndHour() ||
+					){
 				throw new SlotAllreadyInUseException();
 			} else if (end.before(starts)){
 				throw new InvalidEntryException();
@@ -70,5 +73,31 @@ public class Day {
 		this.entries.add(new Entry(starts, end, desc, p));
 
 	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public int getDayOfMonth() {
+		return dayOfMonth;
+	}
+
+	public void setDayOfMonth(int dayOfMonth) {
+		this.dayOfMonth = dayOfMonth;
+	}
+
+
 
 }

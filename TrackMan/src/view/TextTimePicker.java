@@ -45,7 +45,7 @@ public class TextTimePicker extends TextField{
 		} else if(Pattern.compile("\\d{1,4}").matcher(test).matches()){
 			switch(test.length()){
 			case 1:
-				test += "0";
+				test = "0"+test;
 			case 2:
 				test += ":00";
 				break;
@@ -59,7 +59,7 @@ public class TextTimePicker extends TextField{
 		} else{
 			test ="00:00";
 		}
-		if(Integer.parseInt(test.split(":")[0]) <= 24 || Integer.parseInt(test.split(":")[1]) <= 60){
+		if(Integer.parseInt(test.split(":")[0]) <= 24 && Integer.parseInt(test.split(":")[1]) <= 60){
 			this.setText(test);
 			return;
 		} else{

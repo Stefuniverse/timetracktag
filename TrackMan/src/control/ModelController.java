@@ -26,6 +26,8 @@ public class ModelController {
 		d.clear();
 		d.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 		for(Day i : dayList){
+			System.out.println(i.getDate());
+			System.out.println(d);
 			if(i.getDate().equals(d)){
 				return i;
 			}
@@ -62,6 +64,7 @@ public class ModelController {
 	}
 
 	public static void addDay(Day d){
+		d.setDate(roundToDays(d.getDate()));
 		dayList.add(d);
 	}
 

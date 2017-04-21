@@ -10,21 +10,16 @@ import java.util.Calendar;
  */
 public class Entry {
 
-	private Calendar startdate;
-	private Calendar endDate;
+	private double startHour;
+	private double endHour;
 	private String notes;
 	private Project project;
 
-	public Entry(Calendar startdate, Calendar hours, String notes, Project project){
+	public Entry(double startdate, double hours, String notes, Project project){
 		this.project = project;
-		this.startdate = startdate;
-		this.endDate = hours;
+		this.startHour = startdate;
+		this.endHour = hours;
 		this.notes = notes;
-	}
-
-	public Entry (Calendar endate){
-		this.endDate = endate;
-
 	}
 
 	public Project getProject() {
@@ -35,18 +30,6 @@ public class Entry {
 		this.project = project;
 	}
 
-	public Calendar getStartdate() {
-		return startdate;
-	}
-
-	public Calendar getHours() {
-		return endDate;
-	}
-
-	public void setHours(Calendar hours) {
-		this.endDate = hours;
-	}
-
 	public String getNotes() {
 		return notes;
 	}
@@ -55,9 +38,23 @@ public class Entry {
 		this.notes = notes;
 	}
 
-	public long getStartInMillis(){
-		return startdate.getTimeInMillis();
+	public double getStartHour() {
+		return startHour;
 	}
+
+	public void setStartHour(double startHour) {
+		this.startHour = startHour;
+	}
+
+	public double getEndHour() {
+		return endHour;
+	}
+
+	public void setEndHour(double endHour) {
+		this.endHour = endHour;
+	}
+
+
 
 
 }
